@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  backend:
+    image: joelq2000/fastfoodbackend
+    container_name: fastfoodap_backend
+    restart: always
+    ports:
+      - '3000:3000'
+    expose:
+      - '3000'
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: joel
+      DB_PASSWORD: 123456
+      DB_NAME: fastfoodapp
+    volumes:
+      - ./src:/app/src
+
+  db:
+    image: postgres
+    container_name: database
+    restart: always
+    environment:
+      POSTGRES_USER: joel
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: fastfoodapp
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    volumes:
+      - data:/var/lib/postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: 123456
+    ports:
+      - "8080:80"  
+
+volumes:
+  data:
