@@ -1,17 +1,20 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import AddressEntity from 'src/modules/addresses/entities/address.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'customers' })
+@Entity({ name: 'customer' })
 export class CustomerEntity {
-  @PrimaryColumn()
-  idCustomer: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
-  name: string;
+  firstName: string;
 
   @Column()
   lastName: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   dateOfBirth: Date;
 
   @Column()
@@ -22,4 +25,7 @@ export class CustomerEntity {
 
   @Column()
   password: string;
+
+  @OneToMany(() => AddressEntity, (address) => address.customer)
+  addresses: AddressEntity[];
 }

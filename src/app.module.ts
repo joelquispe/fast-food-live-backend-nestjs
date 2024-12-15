@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Inject, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -16,6 +16,11 @@ import { MotorizedModule } from './modules/motorized/motorized.module';
 import { AuthModule } from './modules/auth/auth.module';
 import environments from './environments';
 import { CustomerEntity } from './modules/customers/entities/customer.entity';
+import { OptionsModule } from './modules/options/options.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './modules/auth/guard/auth.guard';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import AddressEntity from './modules/addresses/entities/address.entity';
 
 @Module({
   imports: [
@@ -39,7 +44,8 @@ import { CustomerEntity } from './modules/customers/entities/customer.entity';
           password: password,
           database: database,
           synchronize: true,
-          entities: [CustomerEntity],
+          autoLoadEntities: true,
+          entities: [CustomerEntity, AddressEntity],
         };
       },
     }),
@@ -63,8 +69,22 @@ import { CustomerEntity } from './modules/customers/entities/customer.entity';
     MotorizedModule,
 
     AuthModule,
+
+    OptionsModule,
+
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1h' },
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}

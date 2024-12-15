@@ -1,23 +1,23 @@
 version: "3"
 
 services:
-  backend:
-    image: joelq2000/fastfoodbackend
-    container_name: fastfoodap_backend
-    restart: always
-    ports:
-      - '3000:3000'
-    expose:
-      - '3000'
-    environment:
-      PORT: 3000
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USERNAME: joel
-      DB_PASSWORD: 123456
-      DB_NAME: fastfoodapp
-    volumes:
-      - ./src:/app/src
+  # backend:
+  #   image: joelq2000/fastfoodbackend
+  #   container_name: fastfoodapp_backend
+  #   restart: always
+  #   ports:
+  #     - '3000:3000'
+  #   expose:
+  #     - '3000'
+  #   environment:
+  #     PORT: 3000
+  #     DB_HOST: db
+  #     DB_PORT: 5432
+  #     DB_USERNAME: root
+  #     DB_PASSWORD: 123456
+  #     DB_NAME: fastfoodapp
+  #   volumes:
+  #     - ./src:/app/src
 
   db:
     image: postgres
@@ -33,7 +33,9 @@ services:
       - "5432"
     volumes:
       - data:/var/lib/postgres
-
+    networks:
+      - backend
+  
   pgadmin:
     image: dpage/pgadmin4
     environment:
@@ -44,3 +46,7 @@ services:
 
 volumes:
   data:
+
+networks:
+  backend:
+    driver: bridge
