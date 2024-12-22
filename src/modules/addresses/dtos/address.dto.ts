@@ -1,6 +1,6 @@
+import { OmitType, PartialType } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
-
-class AddressCreateDto {
+export class AddressCreateDto {
   @IsString()
   @IsNotEmpty()
   street: string;
@@ -36,4 +36,6 @@ class AddressCreateDto {
   customer_id: number;
 }
 
-export default AddressCreateDto;
+export class AddressUpdateDto extends PartialType(
+  OmitType(AddressCreateDto, ['customer_id'] as const),
+) {}

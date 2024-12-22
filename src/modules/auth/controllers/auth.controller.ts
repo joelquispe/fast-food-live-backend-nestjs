@@ -10,13 +10,13 @@ export class AuthController {
 
   @Public()
   @Post('/signin')
-  async signin(@Body() body: AuthDto) {
+  async signin(@Body() body: AuthDto): Promise<object> {
     return this.authService.signin(body.email, body.password);
   }
 
   @Public()
   @Post('/signup')
-  async signup(@Body() body: CustomerCreateDto) {
+  async signup(@Body() body: CustomerCreateDto): Promise<CustomerCreateDto> {
     return this.authService.signup(body);
   }
 }

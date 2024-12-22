@@ -12,7 +12,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   const configService = app.get(ConfigService);
-  app.useGlobalFilters(new GlobalExceptionFilter());
+  // app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalInterceptors(new ResponseFormatInterceptor());
   app.useGlobalPipes(
     new ValidationPipe({

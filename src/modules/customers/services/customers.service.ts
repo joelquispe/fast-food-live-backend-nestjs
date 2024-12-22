@@ -12,23 +12,23 @@ export class CustomersService {
     private readonly customerRepository: Repository<CustomerEntity>,
   ) {}
 
-  async getAll() {
+  async findAll(): Promise<CustomerEntity[]> {
     return await this.customerRepository.find();
   }
 
-  async findByEmail(email: string) {
+  async findByEmail(email: string): Promise<CustomerEntity> {
     return await this.customerRepository.findOne({
       where: { email: email },
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<CustomerEntity> {
     return await this.customerRepository.findOne({
       where: { id },
     });
   }
 
-  async save(body: CustomerCreateDto) {
+  async save(body: CustomerCreateDto): Promise<CustomerEntity> {
     const { password } = body;
 
     const hashPassword = await hash(password, 10);

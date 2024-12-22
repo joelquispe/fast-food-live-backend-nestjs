@@ -9,5 +9,6 @@ export default () => {
       database: process.env.DB_NAME,
     },
     jwt_secret: process.env.JWT_SECRET,
+    encryption_key: process.env.ENCRYPTION_KEY,
   };
 };
