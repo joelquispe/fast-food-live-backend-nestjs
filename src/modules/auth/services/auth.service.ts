@@ -1,3 +1,6 @@
+import CreateCustomerResponseDto from '@/modules/customer/dtos/create_customer_response.dto';
+import CustomerCreateDto from '@/modules/customer/dtos/customer.dto';
+import { CustomerService } from '@/modules/customer/services/customer.service';
 import {
   BadRequestException,
   Injectable,
@@ -5,17 +8,14 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import CustomerCreateDto from 'src/modules/customers/dtos/customer.dto';
-import { CustomerEntity } from 'src/modules/customers/entities/customer.entity';
-import { CustomersService } from 'src/modules/customers/services/customers.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly customersService: CustomersService,
+    private readonly customersService: CustomerService,
     private readonly jwtService: JwtService,
   ) {}
-  async signin(email: string, password: string): Promise<object> {
+  async signin(email: string, password: string) {
     const findCustomer = await this.customersService.findByEmail(email);
 
     if (!findCustomer) throw new NotFoundException('No se encontro el usuario');
@@ -27,7 +27,7 @@ export class AuthService {
     return { access_token };
   }
 
-  async signup(body: CustomerCreateDto): Promise<CustomerEntity> {
+  async signup(body: CustomerCreateDto): Promise<CreateCustomerResponseDto> {
     const isExistUser = await this.customersService.findByEmail(body.email);
 
     if (isExistUser)

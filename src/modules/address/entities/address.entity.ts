@@ -7,29 +7,44 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity({ name: 'cards' })
-class CardEntity {
+@Entity({ name: 'addresses' })
+class AddressEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  cardNumber: string;
+  street: string;
 
   @Column()
-  cardHolder: string;
+  country: string;
 
   @Column()
-  cvv: string;
+  zipCode: string;
 
   @Column()
-  expirationDate: string;
+  reference: string;
 
   @Column()
-  lastFourDigits: string;
+  city: string;
+
+  @Column()
+  state: string;
+
+  @Column('double precision')
+  latitude: number;
+
+  @Column('double precision')
+  longitude: number;
 
   @ManyToOne(() => CustomerEntity, (customer) => customer.addresses)
   @JoinColumn({ name: 'customer_id' })
   customer: CustomerEntity;
+
+  constructor(partial?: Partial<AddressEntity>) {
+    if (partial) {
+      Object.assign(this, partial);
+    }
+  }
 }
 
-export default CardEntity;
+export default AddressEntity;

@@ -3,17 +3,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import CardEntity from '../entities/card.entity';
 import { Repository } from 'typeorm';
 import { CreateCardDto } from '../dtos/card.dto';
-import { CustomersService } from 'src/modules/customers/services/customers.service';
+
 import { EncryptionService } from 'src/core/services/encryption/encryption.service';
-import CardResponseDto from '../dtos/card_response.dto';
-import { plainToClass, plainToInstance } from 'class-transformer';
+import CardResponseDto from '../dtos/create_card_response.dto';
+import { plainToInstance } from 'class-transformer';
+import { CustomerService } from '@/modules/customer/services/customer.service';
 
 @Injectable()
 export class CardService {
   constructor(
     @InjectRepository(CardEntity)
     private readonly cardRepository: Repository<CardEntity>,
-    private readonly customerService: CustomersService,
+    private readonly customerService: CustomerService,
     private readonly encryptionService: EncryptionService,
   ) {}
 
@@ -39,6 +40,7 @@ export class CardService {
     if (!customer) throw new NotFoundException('No se encontro el usuario');
     const encryptedCardNumber = this.encryptionService.encrypt(body.cardNumber);
     const encryptedCVV = this.encryptionService.encrypt(body.cvv);
+
     const cardEntity = this.cardRepository.create({
       ...body,
       cardNumber: encryptedCardNumber,

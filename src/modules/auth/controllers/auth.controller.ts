@@ -2,7 +2,9 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import AuthDto from '../dto/auth.dto';
 import { Public } from 'src/core/decorators/public.decorator';
-import CustomerCreateDto from 'src/modules/customers/dtos/customer.dto';
+
+import CreateCustomerResponseDto from '@/modules/customer/dtos/create_customer_response.dto';
+import CustomerCreateDto from '@/modules/customer/dtos/customer.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -16,7 +18,9 @@ export class AuthController {
 
   @Public()
   @Post('/signup')
-  async signup(@Body() body: CustomerCreateDto): Promise<CustomerCreateDto> {
+  async signup(
+    @Body() body: CustomerCreateDto,
+  ): Promise<CreateCustomerResponseDto> {
     return this.authService.signup(body);
   }
 }

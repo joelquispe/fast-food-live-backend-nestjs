@@ -17,6 +17,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
+      skipMissingProperties: true,
     }),
   );
   console.log(`Listen on ${configService.get('port') || 3000}`);

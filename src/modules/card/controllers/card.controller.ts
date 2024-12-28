@@ -2,14 +2,14 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CardService } from '../services/card.service';
 import { CreateCardDto } from '../dtos/card.dto';
 import CardEntity from '../entities/card.entity';
-import CardResponseDto from '../dtos/card_response.dto';
+import CreateCardResponseDto from '../dtos/create_card_response.dto';
 
 @Controller('card')
 export class CardController {
   constructor(private readonly cardService: CardService) {}
 
   @Post()
-  async save(@Body() body: CreateCardDto): Promise<CardResponseDto> {
+  async save(@Body() body: CreateCardDto): Promise<CreateCardResponseDto> {
     return this.cardService.save(body);
   }
 

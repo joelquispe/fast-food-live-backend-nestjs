@@ -4,25 +4,23 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CustomersModule } from './modules/customers/customers.module';
-import { AddressesModule } from './modules/addresses/addresses.module';
-import { OrdersModule } from './modules/orders/orders.module';
-import { RestaurantsModule } from './modules/restaurants/restaurants.module';
-import { ProductsModule } from './modules/products/products.module';
-import { DetailOrdersModule } from './modules/detail-orders/detail-orders.module';
-import { DeliveriesModule } from './modules/deliveries/deliveries.module';
+
 import { MotorizedModule } from './modules/motorized/motorized.module';
 import { AuthModule } from './modules/auth/auth.module';
 import environments from './environments';
-import { CustomerEntity } from './modules/customers/entities/customer.entity';
-import { OptionsModule } from './modules/options/options.module';
+import { CustomerEntity } from './modules/customer/entities/customer.entity';
+
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './modules/auth/guard/auth.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { CardModule } from './modules/card/card.module';
 import { EncryptionService } from './core/services/encryption/encryption.service';
-import AddressEntity from './modules/addresses/entities/address.entity';
+import { AddressModule } from './modules/address/address.module';
+import { CustomerModule } from './modules/customer/customer.module';
+import { ProductModule } from './modules/product/product.module';
+import AddressEntity from './modules/address/entities/address.entity';
 import CardEntity from './modules/card/entities/card.entity';
+import ProductEntity from './modules/product/entities/product.entity';
 
 @Module({
   imports: [
@@ -47,30 +45,16 @@ import CardEntity from './modules/card/entities/card.entity';
           database: database,
           synchronize: true,
           autoLoadEntities: true,
-          entities: [CustomerEntity, AddressEntity, CardEntity],
+          entities: [CustomerEntity, AddressEntity, CardEntity, ProductEntity],
         };
       },
     }),
 
-    CustomersModule,
-
-    AddressesModule,
-
-    OrdersModule,
-
-    RestaurantsModule,
-
-    ProductsModule,
-
-    DetailOrdersModule,
-
-    DeliveriesModule,
+    AddressModule,
 
     MotorizedModule,
 
     AuthModule,
-
-    OptionsModule,
 
     JwtModule.register({
       global: true,
@@ -79,6 +63,10 @@ import CardEntity from './modules/card/entities/card.entity';
     }),
 
     CardModule,
+
+    CustomerModule,
+
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [
