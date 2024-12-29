@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import OptionEntity from '@/modules/option/entities/option.entity';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity({ name: 'products' })
 class ProductEntity {
@@ -30,6 +37,10 @@ class ProductEntity {
 
   @Column({ name: 'updated_at', nullable: true })
   updatedAt: Date;
+
+  @ManyToMany(() => OptionEntity, (option) => option.products)
+  @JoinTable({ name: 'products_options' })
+  options: OptionEntity[];
 }
 
 export default ProductEntity;

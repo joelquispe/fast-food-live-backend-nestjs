@@ -18,7 +18,7 @@ class AddressEntity {
   @Column()
   country: string;
 
-  @Column()
+  @Column({ name: 'zip_code' })
   zipCode: string;
 
   @Column()

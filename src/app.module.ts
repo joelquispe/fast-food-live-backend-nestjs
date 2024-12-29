@@ -8,7 +8,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MotorizedModule } from './modules/motorized/motorized.module';
 import { AuthModule } from './modules/auth/auth.module';
 import environments from './environments';
-import { CustomerEntity } from './modules/customer/entities/customer.entity';
 
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './modules/auth/guard/auth.guard';
@@ -18,9 +17,10 @@ import { EncryptionService } from './core/services/encryption/encryption.service
 import { AddressModule } from './modules/address/address.module';
 import { CustomerModule } from './modules/customer/customer.module';
 import { ProductModule } from './modules/product/product.module';
-import AddressEntity from './modules/address/entities/address.entity';
-import CardEntity from './modules/card/entities/card.entity';
-import ProductEntity from './modules/product/entities/product.entity';
+
+import { join } from 'path';
+import { OptionModule } from './modules/option/option.module';
+import { OptionValueModule } from './modules/option-value/option-value.module';
 
 @Module({
   imports: [
@@ -45,7 +45,7 @@ import ProductEntity from './modules/product/entities/product.entity';
           database: database,
           synchronize: true,
           autoLoadEntities: true,
-          entities: [CustomerEntity, AddressEntity, CardEntity, ProductEntity],
+          entities: [join(__dirname, '**', '*.entity{.ts,.js}')],
         };
       },
     }),
@@ -67,6 +67,10 @@ import ProductEntity from './modules/product/entities/product.entity';
     CustomerModule,
 
     ProductModule,
+
+    OptionModule,
+
+    OptionValueModule,
   ],
   controllers: [AppController],
   providers: [

@@ -12,19 +12,19 @@ class CardEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'card_number' })
   cardNumber: string;
 
-  @Column()
+  @Column({ name: 'card_holder' })
   cardHolder: string;
 
   @Column()
   cvv: string;
 
-  @Column()
+  @Column({ name: 'expiration_date' })
   expirationDate: string;
 
-  @Column()
+  @Column({ name: 'last_four_digits' })
   lastFourDigits: string;
 
   @ManyToOne(() => CustomerEntity, (customer) => customer.addresses)

@@ -1,6 +1,8 @@
 import { PartialType } from '@nestjs/swagger';
 import {
+  IsArray,
   IsBoolean,
+  IsInt,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -36,6 +38,10 @@ export class CreateProductDto {
 
   @UpdateDateColumn()
   updateAt: Date;
+
+  @IsArray()
+  @IsInt({ each: true })
+  optionIds: number[];
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}
