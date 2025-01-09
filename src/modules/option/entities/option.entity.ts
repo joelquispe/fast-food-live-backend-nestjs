@@ -24,7 +24,9 @@ class OptionEntity {
   @JoinTable({ name: 'products_options' })
   products: ProductEntity[];
 
-  @OneToMany(() => OptionValueEntity, (optionValue) => optionValue.option)
+  @OneToMany(() => OptionValueEntity, (optionValue) => optionValue.option, {
+    onDelete: 'CASCADE',
+  })
   optionsValues: OptionValueEntity[];
 }
 

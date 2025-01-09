@@ -44,6 +44,9 @@ export class ProductService {
   }
 
   async findById(id: number): Promise<ProductEntity> {
-    return this.productRepository.findOne({ where: { id: id } });
+    return this.productRepository.findOne({
+      where: { id: id },
+      relations: ['options'],
+    });
   }
 }

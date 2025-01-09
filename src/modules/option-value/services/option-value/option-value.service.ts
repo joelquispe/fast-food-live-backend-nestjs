@@ -47,4 +47,8 @@ export class OptionValueService {
       relations: ['option'],
     });
   }
+
+  async delete(id: number): Promise<void> {
+    await this.optionValueRepository.delete(id);
+  }
 }

@@ -21,6 +21,10 @@ import { ProductModule } from './modules/product/product.module';
 import { join } from 'path';
 import { OptionModule } from './modules/option/option.module';
 import { OptionValueModule } from './modules/option-value/option-value.module';
+import { OrderModule } from './modules/order/order.module';
+import { OrderDetailModule } from './modules/order-detail/order-detail.module';
+import { OrderDetailOptionModule } from './modules/order-detail-option/order-detail-option.module';
+import { CartModule } from './modules/cart/cart.module';
 
 @Module({
   imports: [
@@ -45,6 +49,7 @@ import { OptionValueModule } from './modules/option-value/option-value.module';
           database: database,
           synchronize: true,
           autoLoadEntities: true,
+
           entities: [join(__dirname, '**', '*.entity{.ts,.js}')],
         };
       },
@@ -71,6 +76,14 @@ import { OptionValueModule } from './modules/option-value/option-value.module';
     OptionModule,
 
     OptionValueModule,
+
+    OrderModule,
+
+    OrderDetailModule,
+
+    OrderDetailOptionModule,
+
+    CartModule,
   ],
   controllers: [AppController],
   providers: [

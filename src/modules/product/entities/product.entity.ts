@@ -1,9 +1,11 @@
 import OptionEntity from '@/modules/option/entities/option.entity';
+import OrderDetailEntity from '@/modules/order-detail/entities/order_detail.entity';
 import {
   Column,
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -41,6 +43,9 @@ class ProductEntity {
   @ManyToMany(() => OptionEntity, (option) => option.products)
   @JoinTable({ name: 'products_options' })
   options: OptionEntity[];
+
+  @OneToMany(() => OrderDetailEntity, (orderDetail) => orderDetail.product)
+  orderDetails: OrderDetailEntity;
 }
 
 export default ProductEntity;

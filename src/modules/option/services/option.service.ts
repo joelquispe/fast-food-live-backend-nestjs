@@ -1,4 +1,9 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import OptionEntity from '../entities/option.entity';
 import { In, Repository } from 'typeorm';
@@ -14,6 +19,10 @@ export class OptionService {
     private readonly optionValueService: OptionValueService,
   ) {}
 
+  async findAll(): Promise<OptionEntity[]> {
+    return this.optionRepository.find();
+  }
+
   async create(body: CreateOptionReqDto): Promise<OptionEntity> {
     const option = this.optionRepository.create({
       title: body.title,
@@ -21,7 +30,6 @@ export class OptionService {
     });
     const saveOption = await this.optionRepository.save(option);
 
-    console.log(body.optionsValues);
     for (const value of body.optionsValues) {
       this.optionValueService.create({
         ...value,
@@ -41,5 +49,15 @@ export class OptionService {
       where: { id: id },
       relations: ['optionsValues'],
     });
+  }
+
+  async delete(id: number): Promise<void> {
+    const findOption = await this.findById(id);
+    if (!findOption) throw new NotFoundException('La opción no existe');
+
+    for (const optionValue of findOption.optionsValues) {
+      await this.optionValueService.delete(optionValue.id);
+    }
+    await this.optionRepository.delete(id);
   }
 }
