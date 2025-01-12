@@ -1,3 +1,4 @@
+import CartItemEntity from '@/modules/cart-items/entities/cart_item.entity';
 import OptionEntity from '@/modules/option/entities/option.entity';
 import OrderDetailEntity from '@/modules/order-detail/entities/order_detail.entity';
 import {
@@ -45,7 +46,10 @@ class ProductEntity {
   options: OptionEntity[];
 
   @OneToMany(() => OrderDetailEntity, (orderDetail) => orderDetail.product)
-  orderDetails: OrderDetailEntity;
+  orderDetails: OrderDetailEntity[];
+
+  @OneToMany(() => CartItemEntity, (value) => value.product)
+  cartItems: CartItemEntity[];
 }
 
 export default ProductEntity;

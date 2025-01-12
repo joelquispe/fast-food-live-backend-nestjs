@@ -1,4 +1,4 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsBoolean,
@@ -8,9 +8,11 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-export class CreateProductDto {
+export class ProductRespDto {
+  @ApiProperty()
+  id: number;
+
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -40,11 +42,9 @@ export class CreateProductDto {
   status: boolean;
 
   @ApiProperty()
-  @CreateDateColumn()
   createAt: Date;
 
   @ApiProperty()
-  @UpdateDateColumn()
   updateAt: Date;
 
   @ApiProperty()
@@ -52,5 +52,3 @@ export class CreateProductDto {
   @IsInt({ each: true })
   optionIds: number[];
 }
-
-export class UpdateProductDto extends PartialType(CreateProductDto) {}

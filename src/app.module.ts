@@ -25,6 +25,7 @@ import { OrderModule } from './modules/order/order.module';
 import { OrderDetailModule } from './modules/order-detail/order-detail.module';
 import { OrderDetailOptionModule } from './modules/order-detail-option/order-detail-option.module';
 import { CartModule } from './modules/cart/cart.module';
+import { CartItemsModule } from './modules/cart-items/cart-items.module';
 
 @Module({
   imports: [
@@ -84,6 +85,8 @@ import { CartModule } from './modules/cart/cart.module';
     OrderDetailOptionModule,
 
     CartModule,
+
+    CartItemsModule,
   ],
   controllers: [AppController],
   providers: [

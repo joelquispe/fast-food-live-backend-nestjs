@@ -8,6 +8,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import SigninRespDto from '../dto/signin_resp.dto';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +17,7 @@ export class AuthService {
     private readonly customersService: CustomerService,
     private readonly jwtService: JwtService,
   ) {}
-  async signin(email: string, password: string) {
+  async signin(email: string, password: string): Promise<SigninRespDto> {
     const findCustomer = await this.customersService.findByEmail(email);
 
     if (!findCustomer) throw new NotFoundException('No se encontro el usuario');
@@ -24,7 +26,7 @@ export class AuthService {
 
     if (!isMatch) throw new BadRequestException('Contraseña incorrecta');
     const access_token = this.jwtService.sign({ sub: findCustomer.id });
-    return { access_token };
+    return plainToInstance(SigninRespDto, { access_token });
   }
 
   async signup(body: CustomerCreateDto): Promise<CreateCustomerResponseDto> {

@@ -16,7 +16,7 @@ export class ProductService {
   async create(body: CreateProductDto): Promise<ProductEntity> {
     const findOptions = await this.optionService.findByIds(body.optionIds);
 
-    const product = await this.productRepository.create({
+    const product = this.productRepository.create({
       ...body,
       options: findOptions,
     });
