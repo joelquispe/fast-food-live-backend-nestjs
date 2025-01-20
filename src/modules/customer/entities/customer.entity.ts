@@ -1,4 +1,5 @@
 import AddressEntity from '@/modules/address/entities/address.entity';
+import CartEntity from '@/modules/cart/entities/cart.entity';
 import OrderEntity from '@/modules/order/entities/order.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -35,4 +36,7 @@ export class CustomerEntity {
 
   @OneToMany(() => OrderEntity, (order) => order.customer)
   orders: OrderEntity[];
+
+  @OneToMany(() => CartEntity, (value) => value.customer)
+  carts: CartEntity[];
 }

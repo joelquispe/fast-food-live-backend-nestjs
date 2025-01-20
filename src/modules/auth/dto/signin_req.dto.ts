@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
-class AuthDto {
+export class SigninReqDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsEmail()
@@ -11,5 +11,3 @@ class AuthDto {
   @IsNotEmpty()
   password: string;
 }
-
-export default AuthDto;

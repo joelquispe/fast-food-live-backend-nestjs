@@ -8,6 +8,7 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
+import CardRespDoc from '../dtos/docs/card_resp_doc';
 
 @ApiBearerAuth()
 @Controller('card')
@@ -15,23 +16,7 @@ export class CardController {
   constructor(private readonly cardService: CardService) {}
 
   @ApiCreatedResponse({
-    schema: {
-      example: {
-        data: {
-          id: 1,
-          cardNumber: '1234567812345678',
-          cardHolder: 'John Doe',
-          cvv: '123',
-          expirationDate: '12/25',
-          lastFourDigits: '5678',
-          customer_id: 1,
-        },
-        error: null,
-        statusCode: 201,
-        path: '/cards',
-        timestamp: new Date().toISOString(),
-      },
-    },
+    type: CardRespDoc,
   })
   @Post()
   async save(@Body() body: CreateCardDto): Promise<CreateCardResponseDto> {
@@ -39,23 +24,7 @@ export class CardController {
   }
 
   @ApiOkResponse({
-    schema: {
-      example: {
-        data: {
-          id: 1,
-          cardNumber: '1234567812345678',
-          cardHolder: 'John Doe',
-          cvv: '123',
-          expirationDate: '12/25',
-          lastFourDigits: '5678',
-          customer_id: 1,
-        },
-        error: null,
-        statusCode: 201,
-        path: '/cards',
-        timestamp: new Date().toISOString(),
-      },
-    },
+    type: CardRespDoc,
   })
   @Get(':id')
   async findById(@Param('id') id: number): Promise<CardEntity> {

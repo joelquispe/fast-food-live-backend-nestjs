@@ -17,42 +17,25 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import DataResp from '@/core/dtos/data_resp.dto';
+import AddressRespDoc from '../dtos/docs/address_resp_doc.dto';
+import AddressFindAllRespDoc from '../dtos/docs/address_findAll_resp_doc.dto';
 
+@ApiBearerAuth()
 @Controller('address')
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
   @ApiBearerAuth()
   @ApiOkResponse({
-    type: DataResp<AddressEntity[]>,
+    type: AddressFindAllRespDoc,
   })
   @Get()
   async findAll(): Promise<AddressEntity[]> {
     return this.addressService.findAll();
   }
 
-  @ApiBearerAuth()
   @ApiCreatedResponse({
-    schema: {
-      example: {
-        data: {
-          id: 1,
-          street: 'Calle Ficticia 123',
-          country: 'FicticiaLand',
-          zipCode: '12345',
-          reference: 'Near the big park',
-          city: 'Ciudad Ficticia',
-          state: 'FicticiaState',
-          latitude: 19.432608,
-          longitude: -99.133209,
-          customer_id: 101,
-        },
-        error: null, // Si no hay error
-        statusCode: 201,
-        path: '/address/save',
-        timestamp: new Date().toISOString(),
-      },
-    },
+    type: AddressRespDoc,
   })
   @Post()
   async save(
@@ -61,28 +44,8 @@ export class AddressController {
     return this.addressService.save(body);
   }
 
-  @ApiBearerAuth()
   @ApiCreatedResponse({
-    schema: {
-      example: {
-        data: {
-          id: 1,
-          street: 'Calle Ficticia 123',
-          country: 'FicticiaLand',
-          zipCode: '12345',
-          reference: 'Near the big park',
-          city: 'Ciudad Ficticia',
-          state: 'FicticiaState',
-          latitude: 19.432608,
-          longitude: -99.133209,
-          customer_id: 101,
-        },
-        error: null, // Si no hay error
-        statusCode: 201,
-        path: '/address/save',
-        timestamp: new Date().toISOString(),
-      },
-    },
+    type: AddressRespDoc,
   })
   @Put(':id')
   async update(
@@ -92,7 +55,6 @@ export class AddressController {
     return this.addressService.update(id, body);
   }
 
-  @ApiBearerAuth()
   @ApiOkResponse({
     type: DataResp,
   })

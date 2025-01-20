@@ -1,4 +1,3 @@
-import CreateCustomerResponseDto from '@/modules/customer/dtos/create_customer_response.dto';
 import CustomerCreateDto from '@/modules/customer/dtos/customer.dto';
 import { CustomerService } from '@/modules/customer/services/customer.service';
 import {
@@ -8,8 +7,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import SigninRespDto from '../dto/signin_resp.dto';
 import { plainToInstance } from 'class-transformer';
+import { SigninRespDto, SignupRespDto } from '../dto';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +28,7 @@ export class AuthService {
     return plainToInstance(SigninRespDto, { access_token });
   }
 
-  async signup(body: CustomerCreateDto): Promise<CreateCustomerResponseDto> {
+  async signup(body: CustomerCreateDto): Promise<SignupRespDto> {
     const isExistUser = await this.customersService.findByEmail(body.email);
 
     if (isExistUser)
