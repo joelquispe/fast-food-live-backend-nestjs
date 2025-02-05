@@ -1,11 +1,20 @@
-import { IsNotEmpty, IsNumber } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, ValidateNested } from 'class-validator';
+import { CartItemOptionValueReqDto } from './cart_item_option_value.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 
 export class CartItemOptionReqDto {
+  @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
-  cartItemId: number;
+  optionId: number;
 
+  @ApiProperty({
+    type: [CartItemOptionValueReqDto],
+  })
   @IsNotEmpty()
-  @IsNumber()
-  optionValueId: number;
+  @IsArray()
+  @ValidateNested({ each: true }) // Valida que cada elemento del array sea válido según CartItemOptionValueReqDto
+  @Type(() => CartItemOptionValueReqDto)
+  optionValues: CartItemOptionValueReqDto[];
 }

@@ -1,4 +1,4 @@
-import CartItemOptionsValuesEntity from '@/modules/cart-items/entities/cart_item_options_values.entity';
+import { CartItemOptionsValuesEntity } from '@/modules/cart-items/entities';
 import OptionEntity from '@/modules/option/entities/option.entity';
 import OrderDetailOptionValueEntity from '@/modules/order-detail-option/entities/order_detail_option_value.entity';
 

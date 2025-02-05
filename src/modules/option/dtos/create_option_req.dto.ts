@@ -1,6 +1,13 @@
 import { CreateOptionValueDto } from '@/modules/option-value/dtos/optionValue.dto';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsIn, IsNotEmpty, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsIn,
+  IsNotEmpty,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 
 class CreateOptionReqDto {
   @ApiProperty()
@@ -14,8 +21,12 @@ class CreateOptionReqDto {
   @IsIn(['multiple', 'single', 'quantity'])
   type: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    type: [CreateOptionValueDto],
+  })
   @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateOptionValueDto)
   optionsValues: CreateOptionValueDto[];
 }
 

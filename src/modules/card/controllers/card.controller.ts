@@ -20,7 +20,7 @@ export class CardController {
   })
   @Post()
   async save(@Body() body: CreateCardDto): Promise<CreateCardResponseDto> {
-    return this.cardService.save(body);
+    return this.cardService.create(body);
   }
 
   @ApiOkResponse({

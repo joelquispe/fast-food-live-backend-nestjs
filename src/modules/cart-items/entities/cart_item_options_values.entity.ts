@@ -6,12 +6,12 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import CartItemOptionsEntity from './cart_item_options.entity';
+import { CartItemOptionsEntity } from './cart_item_options.entity';
 
 @Entity({
   name: 'cart_item_options_values',
 })
-class CartItemOptionsValuesEntity {
+export class CartItemOptionsValuesEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -25,9 +25,10 @@ class CartItemOptionsValuesEntity {
   @JoinColumn({ name: 'cart_item_options_id' })
   cartItemOptions: CartItemOptionsEntity;
 
+  @Column({ name: 'option_value_id' })
+  optionValueId: number;
+
   @ManyToOne(() => OptionValueEntity, (value) => value.cartItemOptionsValues)
   @JoinColumn({ name: 'option_value_id' })
   optionValue: OptionValueEntity;
 }
-
-export default CartItemOptionsValuesEntity;

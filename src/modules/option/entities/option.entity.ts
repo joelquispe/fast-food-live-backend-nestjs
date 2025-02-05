@@ -1,3 +1,4 @@
+import { CartItemOptionsEntity } from '@/modules/cart-items/entities';
 import OptionValueEntity from '@/modules/option-value/entities/optionValue.entity';
 import ProductEntity from '@/modules/product/entities/product.entity';
 import {
@@ -28,6 +29,15 @@ class OptionEntity {
     onDelete: 'CASCADE',
   })
   optionsValues: OptionValueEntity[];
+
+  @OneToMany(() => CartItemOptionsEntity, (value) => value.option)
+  cartItemOptions: CartItemOptionsEntity[];
+
+  @Column({ name: 'created_at', default: new Date() })
+  createdAt: Date;
+
+  @Column({ name: 'updated_at', default: new Date() })
+  updatedAt: Date;
 }
 
 export default OptionEntity;

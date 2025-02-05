@@ -8,18 +8,24 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import CartItemOptionsEntity from './cart_item_options.entity';
+import { CartItemOptionsEntity } from './cart_item_options.entity';
 
 @Entity({ name: 'cart_item' })
-class CartItemEntity {
+export class CartItemEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  price: number;
+  total: number;
 
   @Column()
   quantity: number;
+
+  @Column({ name: 'cart_id' })
+  cartId: number;
+
+  @Column({ name: 'products_id' })
+  productId: number;
 
   @ManyToOne(() => CartEntity, (value) => value.cartItems)
   @JoinColumn({ name: 'cart_id' })
@@ -32,5 +38,3 @@ class CartItemEntity {
   @OneToMany(() => CartItemOptionsEntity, (value) => value.cartItem)
   cartItemOptions: CartItemOptionsEntity[];
 }
-
-export default CartItemEntity;

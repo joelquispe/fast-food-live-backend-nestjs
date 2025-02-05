@@ -34,6 +34,6 @@ export class AuthService {
     if (isExistUser)
       throw new BadRequestException('El usuario ya esta registrado');
 
-    return this.customersService.save(body);
+    return this.customersService.create(body);
   }
 }

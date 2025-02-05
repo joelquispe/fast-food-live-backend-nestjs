@@ -30,7 +30,7 @@ export class CustomerService {
     });
   }
 
-  async save(body: CustomerCreateDto): Promise<CreateCustomerResponseDto> {
+  async create(body: CustomerCreateDto): Promise<CreateCustomerResponseDto> {
     const { password } = body;
 
     const hashPassword = await hash(password, 10);

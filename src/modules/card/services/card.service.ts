@@ -4,7 +4,7 @@ import CardEntity from '../entities/card.entity';
 import { Repository } from 'typeorm';
 import { CreateCardDto } from '../dtos/card.dto';
 
-import { EncryptionService } from 'src/core/services/encryption/encryption.service';
+import { EncryptionService } from '@/core/services/encryption/encryption.service';
 import CardResponseDto from '../dtos/create_card_response.dto';
 import { plainToInstance } from 'class-transformer';
 import { CustomerService } from '@/modules/customer/services/customer.service';
@@ -35,7 +35,7 @@ export class CardService {
     this.cardRepository.delete({ id });
   }
 
-  async save(body: CreateCardDto): Promise<CardResponseDto> {
+  async create(body: CreateCardDto): Promise<CardResponseDto> {
     const customer = await this.customerService.findOne(body.customer_id);
     if (!customer) throw new NotFoundException('No se encontro el usuario');
     const encryptedCardNumber = this.encryptionService.encrypt(body.cardNumber);
@@ -56,6 +56,4 @@ export class CardService {
       excludeExtraneousValues: true,
     });
   }
-
-  async update() {}
 }

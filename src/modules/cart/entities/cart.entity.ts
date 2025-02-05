@@ -1,6 +1,7 @@
-import CartItemEntity from '@/modules/cart-items/entities/cart_item.entity';
+import { CartItemEntity } from '@/modules/cart-items/entities';
 import { CustomerEntity } from '@/modules/customer/entities/customer.entity';
 import {
+  Column,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -12,6 +13,9 @@ import {
 class CartEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column({ name: 'customer_id' })
+  customerId: number;
 
   @ManyToOne(() => CustomerEntity, (value) => value.carts)
   @JoinColumn({ name: 'customer_id' })

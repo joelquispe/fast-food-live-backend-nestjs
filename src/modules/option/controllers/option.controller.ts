@@ -6,12 +6,14 @@ import {
   ApiBearerAuth,
   ApiCreatedResponse,
   ApiOkResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { OptionRespDoc } from '../dtos/docs/option_resp_doc.dto';
 import { OptionFindAllRespDoc } from '../dtos/docs/option_findAll_resp_doc.dto';
 import DataResp from '@/core/dtos/data_resp.dto';
 
 @ApiBearerAuth()
+@ApiTags('option')
 @Controller('option')
 export class OptionController {
   constructor(private readonly optionService: OptionService) {}

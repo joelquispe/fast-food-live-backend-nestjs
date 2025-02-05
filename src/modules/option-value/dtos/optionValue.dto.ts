@@ -15,9 +15,4 @@ export class CreateOptionValueDto {
   @ApiProperty()
   @IsNumber()
   quantity: number;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsNumber()
-  optionId: number;
 }

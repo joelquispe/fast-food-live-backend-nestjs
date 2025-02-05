@@ -26,6 +26,7 @@ import { OrderDetailModule } from './modules/order-detail/order-detail.module';
 import { OrderDetailOptionModule } from './modules/order-detail-option/order-detail-option.module';
 import { CartModule } from './modules/cart/cart.module';
 import { CartItemsModule } from './modules/cart-items/cart-items.module';
+import { UtilsModule } from './core/services/utils.module';
 
 @Module({
   imports: [
@@ -50,7 +51,6 @@ import { CartItemsModule } from './modules/cart-items/cart-items.module';
           database: database,
           synchronize: true,
           autoLoadEntities: true,
-
           entities: [join(__dirname, '**', '*.entity{.ts,.js}')],
         };
       },
@@ -87,6 +87,8 @@ import { CartItemsModule } from './modules/cart-items/cart-items.module';
     CartModule,
 
     CartItemsModule,
+
+    UtilsModule,
   ],
   controllers: [AppController],
   providers: [
@@ -95,7 +97,6 @@ import { CartItemsModule } from './modules/cart-items/cart-items.module';
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
-    EncryptionService,
   ],
 })
 export class AppModule {}

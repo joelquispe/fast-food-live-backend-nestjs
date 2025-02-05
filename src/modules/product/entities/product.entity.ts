@@ -1,4 +1,4 @@
-import CartItemEntity from '@/modules/cart-items/entities/cart_item.entity';
+import { CartItemEntity } from '@/modules/cart-items/entities';
 import OptionEntity from '@/modules/option/entities/option.entity';
 import OrderDetailEntity from '@/modules/order-detail/entities/order_detail.entity';
 import {

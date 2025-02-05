@@ -4,7 +4,7 @@ import { CardController } from './controllers/card.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import CardEntity from './entities/card.entity';
 
-import { EncryptionService } from 'src/core/services/encryption/encryption.service';
+import { EncryptionService } from '@/core/services/encryption/encryption.service';
 import { CustomerModule } from '../customer/customer.module';
 
 @Module({

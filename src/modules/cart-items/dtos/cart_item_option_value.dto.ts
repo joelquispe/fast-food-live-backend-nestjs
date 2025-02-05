@@ -1,13 +1,13 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CartItemOptionValueReqDto {
+  @ApiProperty()
   @IsNotEmpty()
   @IsNumber()
   quantity: number;
 
-  @IsNumber()
-  cartItemOptionId: number;
-
+  @ApiProperty()
   @IsNumber()
   optionValueId: number;
 }

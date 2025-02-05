@@ -31,10 +31,7 @@ export class OptionService {
     const saveOption = await this.optionRepository.save(option);
 
     for (const value of body.optionsValues) {
-      this.optionValueService.create({
-        ...value,
-        optionId: saveOption.id,
-      });
+      this.optionValueService.create(saveOption.id, value);
     }
 
     return saveOption;

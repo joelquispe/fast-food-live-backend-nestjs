@@ -38,10 +38,10 @@ export class AddressController {
     type: AddressRespDoc,
   })
   @Post()
-  async save(
+  async create(
     @Body() body: AddressCreateDto,
   ): Promise<CreateAddressResponseDto> {
-    return this.addressService.save(body);
+    return this.addressService.create(body);
   }
 
   @ApiCreatedResponse({

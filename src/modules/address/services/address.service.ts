@@ -19,10 +19,10 @@ export class AddressService {
     return this.addressRepository.find();
   }
 
-  async save(body: AddressCreateDto): Promise<CreateAddressResponseDto> {
+  async create(body: AddressCreateDto): Promise<CreateAddressResponseDto> {
     const customer = await this.customerService.findOne(body.customer_id);
     if (!customer)
-      throw new BadRequestException('No se pudo guardar la dirección');
+      throw new BadRequestException('No se pudo crear la dirección');
 
     const data = new AddressEntity({ ...body, customer });
     const saveData = await this.addressRepository.save(data);

@@ -19,8 +19,11 @@ export class OptionValueService {
     private readonly optionService: OptionService,
   ) {}
 
-  async create(body: CreateOptionValueDto): Promise<OptionValueEntity> {
-    const findOption = await this.optionService.findById(body.optionId);
+  async create(
+    optionId: number,
+    body: CreateOptionValueDto,
+  ): Promise<OptionValueEntity> {
+    const findOption = await this.optionService.findById(optionId);
 
     if (!findOption) throw new NotFoundException('La opción no existe');
 
